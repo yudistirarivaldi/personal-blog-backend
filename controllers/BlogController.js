@@ -20,13 +20,31 @@ module.exports = {
   getAllBlog: async (req, res) => {
     try {
       const blogs = await Blog.findAll({
-        attributes: ["id", "content", "publication", 'createdAt'],
+        attributes: ["id", "title", "content", "publication", "createdAt"],
       });
 
       res.status(200).json({
         status: "success",
         message: "Successfully get data",
         data: blogs,
+      });
+    } catch (error) {
+      res.status(500).json({ error: "Error retrieving with server" });
+    }
+  },
+
+  deleteBlog: async (req, res) => {
+    try {
+      const { id } = req.params;
+
+      const deleteBlog = await Blog.destroy({
+        where: {
+          id: id,
+        },
+      });
+      res.status(200).json({
+        status: "success",
+        message: "Successfully delete data",
       });
     } catch (error) {
       res.status(500).json({ error: "Error retrieving with server" });
