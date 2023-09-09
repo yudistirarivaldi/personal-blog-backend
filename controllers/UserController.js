@@ -37,7 +37,7 @@ module.exports = {
 
       if (checkPassword) {
         jwt.sign(
-          { username, id: findUser._id },
+          { username, id: findUser.id },
           SECRET_KEY,
           {},
           (err, token) => {
@@ -72,5 +72,9 @@ module.exports = {
     });
 
     res.json(req.cookies);
+  },
+
+  logout: async (req, res) => {
+    res.cookie("token", "").json("ok");
   },
 };
