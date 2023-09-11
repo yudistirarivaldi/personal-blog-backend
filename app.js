@@ -12,6 +12,7 @@ const blogRouter = require("./routes/blog");
 
 const app = express();
 
+app.use("/uploads", express.static(__dirname + "/uploads"));
 app.use(logger("dev"));
 app.use(cors({ credentials: true, origin: "http://localhost:3000" }));
 app.use(express.json());
